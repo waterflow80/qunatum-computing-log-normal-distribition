@@ -70,12 +70,50 @@ The probability distribution will be:
 ### Four Qubit Representation
 For the four-qubit representation, we were able to identify a pattern of the order of the application of RY gates, and created an algorithm that produces the quantum circuit for any given number of qubits. 
 The new angles for the RY gates will be:
-|![theta7](https://github.com/user-attachments/assets/86d468bb-f767-49c5-b3e1-04931cfd2e40)
- |![theta8](https://github.com/user-attachments/assets/9f5a0c3b-f7d2-4182-a826-fc65b46c0b53)
- |![theta9](https://github.com/user-attachments/assets/c7754c11-3e07-4302-9bf5-98fd21e32f20)
-  | ![theta10](https://github.com/user-attachments/assets/f39f6abc-42b4-4fcb-9ac6-9fd62cf504e6)
- |
-| ![theta11](https://github.com/user-attachments/assets/2976ce1d-1270-45f5-b684-80913f38baa1)
- |  | | |
+| ![theta7](https://github.com/user-attachments/assets/223b0404-df09-4e32-8b1d-363f6f23e011)
+ | ![theta8](https://github.com/user-attachments/assets/0f1f3cee-8547-4a2e-90bb-3691ea59f0da)
+ | ![theta9](https://github.com/user-attachments/assets/f00e24cb-e4db-47b3-975e-49def5e222f3)
+ | ![theta10](https://github.com/user-attachments/assets/50c363d4-632d-47e0-b686-55efdad0f5ea)
+|
+| ![theta11](https://github.com/user-attachments/assets/40aee67e-4051-4971-a729-8b4ad9b5997a)
+ | ![theta12](https://github.com/user-attachments/assets/6f181f22-a2e8-4870-a683-8f021fd7c407)
+ | ![theta13](https://github.com/user-attachments/assets/9e069aaf-63b5-423f-8d48-34168e4df12e)
+ | ![theta14](https://github.com/user-attachments/assets/f8e93e34-8841-436f-96d0-651fb7233d2b)
+  |
+  
+The corresponding quantum circuit will be:
+
+![4-qubit-circuit](https://github.com/user-attachments/assets/6db59aa2-4560-45d4-b84d-9f4a16292b07)
+
+And we will eventually get the fowllowing distribution:
+
+![4-qubit-distrot](https://github.com/user-attachments/assets/cae96d3a-400d-4ba1-baa9-36c2b74335fc)
+
+## Challenges
+Using the approach described in this report to prepare a quantum state that represents a log normal distribution might be very resource consuming. And, as we increase the number of qubits, the number of gates also increases exponentially. The following graph show the increase of the number of gates in function of the number of qubits used:
+
+![increase](https://github.com/user-attachments/assets/8b0e2928-4a70-44f9-a989-05062363d751)
+
+
+## Run
+In order to run the project, you should follow the following steps:
+```sh
+# clone the project locally
+git clone https://github.com/waterflow80/qunatum-computing-log-normal-distribition.git
+# locate in the root directory
+cd qunatum-computing-log-normal-distribition
+# create a python virtual environment 
+python3.8 -m venv venv
+. venv/bin/activate
+# install dependencies
+venv/bin/pip install -t requirements.txt
+# run the notebook using vscode or spyder (in order to visualize the plots)
+code .
+# set the virtualenv in vscode to be venv
+# execute the cell
+```
+
+To change the number of qubits, set the `N_QUBITS = X` in the top of the script to your desired X.
+
 ## References
 [1] https://medium.com/qiskit/systematic-preparation-of-arbitrary-probability-distribution-with-a-quantum-computer-165dfd8fbd7d
