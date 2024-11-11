@@ -70,7 +70,8 @@ The probability distribution will be:
 ### Four Qubit Representation
 For the four-qubit representation, we were able to identify a pattern of the order of the application of RY gates, and created an algorithm that produces the quantum circuit for any given number of qubits. 
 The new angles for the RY gates will be:
-| ![theta7](https://github.com/user-attachments/assets/223b0404-df09-4e32-8b1d-363f6f23e011)
+
+ | ![theta7](https://github.com/user-attachments/assets/223b0404-df09-4e32-8b1d-363f6f23e011)
  | ![theta8](https://github.com/user-attachments/assets/0f1f3cee-8547-4a2e-90bb-3691ea59f0da)
  | ![theta9](https://github.com/user-attachments/assets/f00e24cb-e4db-47b3-975e-49def5e222f3)
  | ![theta10](https://github.com/user-attachments/assets/50c363d4-632d-47e0-b686-55efdad0f5ea)
