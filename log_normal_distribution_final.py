@@ -45,21 +45,30 @@ uncertainty_model = LogNormalDistribution(
   num_uncertainty_qubits, mu=mu, sigma=sigma ** 2, bounds=(low, high)
 )
 
-p0, p1 = np.array(np.array_split(uncertainty_model.probabilities, 2)).sum(axis=1)
-theta0 = 2 * np.arccos(np.sqrt(p0))
-p00, p01, p10, p11 =\
-    np.array(np.array_split(uncertainty_model.probabilities, 4)).sum(axis=1)
-theta1 = 2 * np.arccos(np.sqrt(p00 / p0))
-theta2 = 2 * np.arccos(np.sqrt(p10 / p1))
-p000, p001, p010, p011, p100, p101, p110, p111 = \
-    np.array(np.array_split(uncertainty_model.probabilities, 8)).sum(axis=1)
-theta3 = 2 * np.arccos(np.sqrt(p000 / p00))
-theta4 = 2 * np.arccos(np.sqrt(p010 / p01))
-theta5 = 2 * np.arccos(np.sqrt(p100 / p10))
-theta6 = 2 * np.arccos(np.sqrt(p110 / p11))
+# 1 qubits
+if N_QUBITS >= 1:
+    p0, p1 = np.array(np.array_split(uncertainty_model.probabilities, 2)).sum(axis=1)
+    theta0 = 2 * np.arccos(np.sqrt(p0))
+    theta_arr = [theta0]
+# 2 qubits
+if N_QUBITS >= 2:
+    p00, p01, p10, p11 =\
+        np.array(np.array_split(uncertainty_model.probabilities, 4)).sum(axis=1)
+    theta1 = 2 * np.arccos(np.sqrt(p00 / p0))
+    theta2 = 2 * np.arccos(np.sqrt(p10 / p1))
+    theta_arr = [theta0, theta1, theta2]
+# 3 qubits
+if N_QUBITS >= 3:
+    p000, p001, p010, p011, p100, p101, p110, p111 = \
+        np.array(np.array_split(uncertainty_model.probabilities, 8)).sum(axis=1)
+    theta3 = 2 * np.arccos(np.sqrt(p000 / p00))
+    theta4 = 2 * np.arccos(np.sqrt(p010 / p01))
+    theta5 = 2 * np.arccos(np.sqrt(p100 / p10))
+    theta6 = 2 * np.arccos(np.sqrt(p110 / p11))
+    theta_arr = [theta0, theta1, theta2, theta3, theta4, theta5, theta6]
 
 # 4 qubits
-if N_QUBITS == 4:
+if N_QUBITS >= 4:
     p0000, p0001, p0010, p0011, p0100, p0101, p0110, p0111, p1000, p1001, \
     p1010, p1011, p1100, p1101, p1110, p1111 = uncertainty_model.probabilities
     theta7 = 2 * np.arccos(np.sqrt(p0000 / p000))
@@ -73,8 +82,6 @@ if N_QUBITS == 4:
 
     theta_arr = [theta0, theta1, theta2, theta3, theta4, theta5, theta6, theta7,
                  theta8, theta9, theta10, theta11, theta12, theta13, theta14]
-else:
-    theta_arr = [theta0, theta1, theta2, theta3, theta4, theta5, theta6, theta7]
     
 
 def generate_permutations(n):
@@ -176,12 +183,10 @@ job = backend.run(transpiled_circuit, shots=shots, seed=1)
 counts = job.result().get_counts()
 
 # plot
-ax1 = plt.figure(figsize=(10, 6), dpi=100, facecolor="w", linewidth=0, edgecolor="w"
+ax1 = plt.figure(figsize=(8, 4), dpi=100, facecolor="w", linewidth=0, edgecolor="w"
 ).add_subplot(1, 1, 1)
-ax2 = plt.figure(figsize=(10, 10), dpi=100, facecolor="w", linewidth=0, edgecolor="w"
+ax2 = plt.figure(figsize=(8, 4), dpi=100, facecolor="w", linewidth=0, edgecolor="w"
 ).add_subplot(1, 1, 1)
 
 plot_histogram(counts, ax=ax1)
 qc.draw("mpl", ax=ax2)
-sizes.append(qc.size())
-print(f"sizes = {sizes}")
